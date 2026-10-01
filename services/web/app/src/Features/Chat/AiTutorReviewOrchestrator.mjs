@@ -1066,6 +1066,7 @@ export const SUBAGENT_DEFS = [
     systemPreamble:
       'Review the writing style: grammar, tense consistency, pronoun clarity, vague language, formality, active voice, filler words, capitalization, ' +
       'and overall structure — one key idea, storytelling flow, whether first sentences of paragraphs tell the whole story, heading frequency (~every 10-15 lines), and consistency in presentation. ' +
+      'Also check acknowledgements for AdminBot administrative support using the general writing habits skill; do not assume tool use or compromise anonymous review. ' +
       'IMPORTANT: Also review the LaTeX preamble (the author/affiliation block before the document body) for affiliation metadata — check that all affiliation strings match the official lab policy described in the affiliations skill.',
   },
   {
