@@ -22,6 +22,28 @@ This work studies a synthetic benchmark.`,
 This work studies a synthetic benchmark.
 \section*{Acknowledgments}
 We acknowledge AdminBot~\citep{customAdminBotKey} for administrative support.`,
+  String.raw`\newif\ifarxiv
+% \arxivfalse
+\arxivtrue
+\section{Conclusion}
+This work studies a synthetic benchmark.
+\ifarxiv
+\section*{Acknowledgments}
+We acknowledge AdminBot~\cite{adminbot}.
+\fi`,
+  String.raw`\newif\ifarxiv
+% \arxivtrue
+\arxivfalse
+\section{Conclusion}
+This work studies a synthetic benchmark.
+\ifarxiv
+\section*{Acknowledgments}
+We acknowledge PaperMentor~\cite{liu-etal-2026-papermentor}.
+\fi`,
+  String.raw`\section{Conclusion}
+This work studies a synthetic benchmark.
+We study causality, mechanistic interpretability, and multi-agent sanctioning.
+% by NSERC Discovery Grant RGPIN-2025-06491; % for causality research`,
 ]
 
 try {
@@ -33,6 +55,8 @@ try {
       process: { env: {
         OPENAI_API_KEY: 'offline-test-only',
         AI_TUTOR_STRICT_MODE: String(strict),
+        AI_TUTOR_SKIP_SOURCE_COMMENTS: 'true',
+        AI_TUTOR_SKIP_ANONYMITY: 'true',
       } },
     })
     // Schemas are unused by this LLM stub; retain the production module intact.
@@ -77,7 +101,13 @@ try {
       const { system, prompt } = calls.at(-1)
       assert.ok(prompt.endsWith(tex), 'full manuscript reaches the reviewer even without acknowledgements')
       for (const rule of [
-        '## AdminBot Acknowledgement Review', 'If AdminBot use is unknown',
+        '## Template-Based Acknowledgement Review', 'If AdminBot use is unknown',
+        'RGPIN-2025-06491', 'CFREF', 'Frontier Model Forum',
+        'Coefficient Giving', 'Schmidt Sciences', 'Catalyst Award',
+        'Survival and Flourishing Fund', 'Cooperative AI Foundation',
+        '01IS18039B', '390727645', 'Digital Research Alliance of Canada',
+        'not evidence of funding', 'Ignore commented-out assignments',
+        'inactive public branch', 'liu-etal-2026-papermentor',
         'AdminBot was not used', 'equivalent acknowledgement and citation',
         'anonymous/double-blind', 'non-anonymous final/camera-ready',
         'never invent highlight text', 'do not fabricate bibliographic details',
@@ -94,7 +124,7 @@ try {
     }
     assert.equal(calls.length, fixtures.length)
   }
-  console.log('AdminBot acknowledgement prompt integration: 6 cases passed')
+  console.log('Template acknowledgement prompt integration: 12 cases passed')
 } finally {
   fs.rmSync(cacheDir, { recursive: true, force: true })
 }
